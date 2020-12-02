@@ -3,6 +3,7 @@ package com.quiz.swapi;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.client.RxHttpClient;
 import io.micronaut.http.client.annotation.Client;
+import io.micronaut.retry.annotation.Retryable;
 
 import javax.inject.Singleton;
 import java.util.Map;
@@ -20,6 +21,7 @@ public class StarwarsApiClient {
 		this.swApiClient = httpClient;
 	}
 
+	@Retryable
 	public Map retrieve(String endpoint, String page) {
 		String URI = page == null || page.isEmpty()
 				? "/" + endpoint + "/" : "/" + endpoint + "/?page=" + page;
