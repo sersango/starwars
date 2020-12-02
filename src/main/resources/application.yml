@@ -1,3 +1,21 @@
 micronaut:
   application:
     name: starwars
+  caches:
+    people:
+      charset: 'UTF-8'
+      expire-after-access: 1m
+      expire-after-write: 1m
+    starships:
+      charset: 'UTF-8'
+      expire-after-access: 1m
+      expire-after-write: 1m
+  router:
+    static-resources:
+      default:
+        enabled: true
+        mapping: "/static/**"
+        paths: classpath:static
+  api:
+    swapi:
+      url: "https://swapi.dev/api"

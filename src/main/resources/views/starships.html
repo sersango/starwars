@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Starships</title>
+		<link rel="stylesheet" th:href="@{static/main.css}">
+	</head>
+	<body>
+		<nav>
+			<ul>
+				<li><a href="/">Home</a></li>
+				<li><a href="/people">People</a></li>
+				<li><a class="active" href="/starships">Starships</a></li>
+			</ul>
+		</nav>
+		<h1>Starwars information - Starships</h1>
+		<div>
+			<p>You can sort starships by "name" and "created" fields, in descending and ascending order, both cases.</p>
+			<table>
+				<tr>
+					<th th:if="${sortedBy=='name'}">
+						<a th:href="@{/starships(sort='name',dir=${dir=='asc'} ? 'desc' : 'asc')}"
+							 th:text="${dir=='asc'} ? 'Name (ASC)' : 'Name (DESC)'"></a>
+					</th>
+					<th th:unless="${sortedBy=='name'}">
+						<a th:href="@{/starships(sort='name',dir='asc')}">Name</a>
+					</th>
+					<th>Length</th>
+					<th>Crew</th>
+					<th>Passengers</th>
+					<th th:if="${sortedBy=='created'}">
+						<a th:href="@{/starships(sort='created',dir=${dir=='asc'} ? 'desc' : 'asc')}"
+							 th:text="${dir=='asc'} ? 'Created at (ASC)' : 'Created at (DESC)'"></a>
+					</th>
+					<th th:unless="${sortedBy=='created'}">
+						<a th:href="@{/starships(sort='created',dir='asc')}">Created at</a>
+					</th>
+				</tr>
+				<tr th:each="starship: ${starships}">
+					<td th:text="${starship.name}"/>
+					<td th:text="${starship.length}"/>
+					<td th:text="${starship.crew}"/>
+					<td th:text="${starship.passengers}"/>
+					<td th:text="${#dates.format(starship.created, 'dd/MM/yyyy - hh:mm:ss')}"/>
+				</tr>
+			</table>
+		</div>
+	</body>
+</html>
